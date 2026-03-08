@@ -17,3 +17,4 @@ def about(request):
 def detail(request, id):
     
     return render(request)
+
