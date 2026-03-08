@@ -1,7 +1,19 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from .models import Post
 
 # Create your views here.
 
-def index(request):
-    return HttpResponse("<h1> This is the music app homepage </h1>")
+def home(request):
+    posts = Post.objects.all()
+    context = {
+        'posts' : posts
+    }
+    return render(request, 'music/home.html', context)
+
+def about(request):
+
+    return render(request, 'music/about.html')
+
+def detail(request, id):
+    
+    return render(request)

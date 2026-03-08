@@ -1,12 +1,12 @@
 from django.db import models
+from django.utils import timezone
+from django.contrib.auth.models import User
 
-class Album(models.Model):
-    artist = models.CharField(max_length=100)
-    album_title = models.CharField(max_length=100)
-    genre = models.CharField(max_length=100)
-    album_logo = models.CharField(max_length=100)
+class Post(models.Model):
+    title = models.CharField(max_length=100)
+    content = models.CharField(max_length=1000)
+    date = models.DateTimeField(default=timezone.now)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
-class Song(models.Model):
-    album = models.ForeignKey(Album, on_delete=models.CASCADE)
-    song_type = models.CharField(max_length=100)
-    song_title = models.CharField(max_length=100)
+    def __str__(self):
+        return self.title + " - " + str(self.date)
