@@ -11,7 +11,11 @@ def register(request):
         if form.is_valid():
             phone_number = form.cleaned_data.get('phone_number')
             user = form.save()
-            Profile.objects.create(user=user, phone_number=phone_number)
+
+            # Update the profile created by the signal
+            user.profile.phone_number = phone_number
+            user.profile.save()
+            
             username = form.cleaned_data.get('username')
             messages.success(request, f"Created a new account for {username}!")
             return redirect('login')
